@@ -7,18 +7,21 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public TextAsset textJson;
-    public MoveCar carPrefab;
+    public MoveCar[] carPrefab;
     public List<MoveCar> cars;
     public Waypoints[] waypoints;
+    MoveCar nextCar;
     int stationaryCars;
     bool carExists;
     int i = 0;
     List<List<Object>> myDeserializedObjList;
     string posX;
     string posY;
+    Dictionary<string, MoveCar> dic;
     // Start is called before the first frame update
     void Start()
     {
+        dic = new Dictionary<string, MoveCar>();
         myDeserializedObjList = JsonConvert.DeserializeObject<List<List<Object>>>(textJson.text);
     }
 
@@ -29,19 +32,19 @@ public class Controller : MonoBehaviour
         
             //See if all cars are done with their move
             stationaryCars = 0;
-
-            //For each car that is in existance detect if it is moving or not
-            foreach (MoveCar car in cars)
+            foreach (KeyValuePair<string, MoveCar> entry in dic)
             {
-                if (car.move == false)
+                if (entry.Value.move == false)
                 {
                     //If car is not moving then add 1 to the quantity of stationary cars
                     stationaryCars += 1;
                 }
+
             }
 
+
             ////If the amount of stationary cars is the same as all the cars in existance
-            if (stationaryCars == cars.Count)
+            if (stationaryCars == dic.Count || stationaryCars >= (dic.Count*0.5))
             {
                 //For each object in json file execute this for loop
                 for (int j = 0; j < myDeserializedObjList[i].Count; j++)
@@ -51,23 +54,11 @@ public class Controller : MonoBehaviour
                     if (myDeserializedObjList[i][j].kind == "car")
                     {
                         carExists = false;
-                        foreach(MoveCar car in cars)
-                        {
-                            //Look for car to move in list of cars using unique id
-                            if (car.unique_id.Equals(myDeserializedObjList[i][j].id))
-                            {
-                                carExists = true;
-                                posX = myDeserializedObjList[i][j].positionX;
-                                posY = myDeserializedObjList[i][j].positionZ;
-                                foreach (Waypoints wayPoint in waypoints)
-                                {
-                                    if (posX == wayPoint.xPos && posY == wayPoint.yPos)
-                                    {
-                                        car.MoveToPoint(wayPoint);
-                                    }
-                                }
-                            }
+                        if (dic.ContainsKey(myDeserializedObjList[i][j].id)) {
+                            carExists = true;
+                            dic[myDeserializedObjList[i][j].id].CheckId(waypoints, myDeserializedObjList[i][j]);
                         }
+
                         //If car doesn't exist then instantiate the car
                         if (carExists == false)
                         {
@@ -77,11 +68,23 @@ public class Controller : MonoBehaviour
                             {
                                 if (posX == wayPoint.xPos && posY == wayPoint.yPos)
                                 {
-                                    carPrefab.nextWaipoint = wayPoint;
-                                    carPrefab.lastWayPoint = wayPoint;
-                                    carPrefab.unique_id = myDeserializedObjList[i][j].id;
-                                    cars.Add(Instantiate(carPrefab, wayPoint.transform.position, Quaternion.identity));
-                                
+                                    if (myDeserializedObjList[i][j].color == "white")
+                                    {
+                                        nextCar = carPrefab[0];
+                                    }
+                                    else if (myDeserializedObjList[i][j].color == "green2")
+                                    {
+                                        nextCar = carPrefab[1];
+                                    }
+                                    else {
+                                        nextCar = carPrefab[2];
+                                    }
+                                    nextCar.nextWaipoint = wayPoint;
+                                    nextCar.lastWayPoint = wayPoint;
+                                    nextCar.unique_id = myDeserializedObjList[i][j].id;
+                                    dic.Add(nextCar.unique_id, Instantiate(nextCar, wayPoint.transform.position, Quaternion.identity));
+                                    //cars.Add(Instantiate(nextCar, wayPoint.transform.position, Quaternion.identity));
+                                    break;
                                 }
                             }
                         }
