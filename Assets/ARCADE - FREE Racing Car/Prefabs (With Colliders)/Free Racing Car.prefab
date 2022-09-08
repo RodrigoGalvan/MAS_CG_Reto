@@ -463,7 +463,7 @@ GameObject:
   - component: {fileID: 1022686645945989785}
   m_Layer: 0
   m_Name: Free Racing Car
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -515,9 +515,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  rotSpeed: 10
+  rotSpeed: 15
   move: 0
-  unique_id: 12
+  unique_id: 13
   nextWaipoint: {fileID: 0}
   lastWayPoint: {fileID: 0}
   stop: 0

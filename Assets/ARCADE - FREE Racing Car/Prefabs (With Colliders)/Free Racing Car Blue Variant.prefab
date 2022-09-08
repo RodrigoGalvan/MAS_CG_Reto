@@ -16,8 +16,12 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1022686645945989785, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: rotSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022686645945989785, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: unique_id
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1022686645945989785, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: lastWayPoint
@@ -86,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 3311311803080157842, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: m_Name
       value: Free Racing Car Blue Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3311311803080157842, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: m_TagString
+      value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 7495443279060062592, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: m_UseGravity

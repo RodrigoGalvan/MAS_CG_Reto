@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class Waypoints : MonoBehaviour
 {
+    //Waypoint description
     public string xPos;
     public string yPos;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

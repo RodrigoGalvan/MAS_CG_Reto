@@ -357,6 +357,7 @@
 "Assets/Scripts/MoveCar.cs"
 "Assets/Scripts/Movimiento.cs"
 "Assets/Scripts/Object.cs"
+"Assets/Scripts/TrafficLight.cs"
 "Assets/Scripts/Waypoints.cs"
 -langversion:9.0
 

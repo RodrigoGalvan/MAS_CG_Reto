@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Object
 {
+    //Json information of all agents
     public string id { get; set; }
     public string kind { get; set; }
     public string positionX { get; set; }
